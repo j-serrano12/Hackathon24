@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Python Script</title>
+</head>
+<body>
+    <button id="runScriptButton">Run request.py</button>
+    <pre id="output"></pre>
+
+    <script>
+        document.getElementById('runScriptButton').addEventListener('click', () => {
+            fetch('/run-script', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').textContent = data.output || data.error;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('output').textContent = 'An error occurred';
+            });
+        });
+    </script>
+</body>
+</html>
