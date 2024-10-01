@@ -48,14 +48,14 @@ def activate_recognition():
 
         # Extracting values
         name = name_match.group(1) if name_match else "N/A"
-        phone = phone_match.group(1) if phone_match else "N/A"
-        employees = employees_match.group(1) if employees_match else "N/A"
+        phone = phone_match.group(1) if phone_match else None
+        employees = employees_match.group(1) if employees_match else None
 
         # Creating dictionary
         data = {
             "Name": name,
             "Phone": phone,
-            "NumberOfEmployees": int(employees) if employees.isdigit() else "N/A"
+            "NumberOfEmployees": int(employees)
         }
 
         # Convert to JSON
@@ -63,8 +63,6 @@ def activate_recognition():
 
         # Output the result
         print(json_data)
-        messagebox.showinfo("Recognition Result", f"Data: {json_data}")
-
         # Salesforce credentials (Consider using environment variables for security)
         client_id = '3MVG90biqdLHqqMTbYjPlAYYzVwasrNt_nB9ZmrUsD.xTeGok_7wHFfSVcy8Cz55GL6KEcHpXeqhch1ldLLKf'
         client_secret = '7F2FD63C4A72A4EDA0A7D44DD8366EA1AA7C844F1301737744C31E42B38A1040'
@@ -104,6 +102,7 @@ def activate_recognition():
                 if create_account_response.status_code == 201:
                     print("Account created successfully:", create_account_response.json())
                     messagebox.showinfo("Success", "Account created successfully!")
+                    status_label.config(text="Account created successfully!", fg="green")
                 else:
                     print("Error creating account:", create_account_response.json())
                     messagebox.showerror("Error", f"Error creating account: {create_account_response.json()}")
@@ -132,7 +131,7 @@ status_font = font.Font(family="Helvetica", size=10, slant="italic")
 title_frame = tk.Frame(root, bg="#f0f0f0")
 title_frame.pack(pady=20)
 
-title_label = tk.Label(title_frame, text="Speech Recognition", font=title_font, bg="#f0f0f0", fg="#333333")
+title_label = tk.Label(title_frame, text="Hackathon 24 Winners", font=title_font, bg="#f0f0f0", fg="#333333")
 title_label.pack()
 
 # Create a frame for the button
