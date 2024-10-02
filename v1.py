@@ -5,6 +5,8 @@ import speech_recognition as sr
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import font
+from tkinter import PhotoImage
+from ttkbootstrap import Style
 
 def recognize_speech_from_microphone():
     # Initialize recognizer class (for recognizing the speech)
@@ -35,7 +37,7 @@ def recognize_speech_from_microphone():
         status_label.config(text="Speech recognition service error.", fg="red")
         root.update()
         return None
-
+    
 def activate_recognition():
     # Call the function and assign the result to input_string
     input_string = recognize_speech_from_microphone()
@@ -119,31 +121,36 @@ def activate_recognition():
 # Create the UI window
 root = tk.Tk()
 root.title("Speech Recognition App")
-root.geometry("400x300")
-root.configure(bg="#f0f0f0")  # Light grey background
+root.geometry("590x660")
+root.configure(bg="#91cff2")  # Light blue background
+
+#load the image 
+image = PhotoImage(file='bg-ornament-vertical-einstein.png')
+image_label = tk.Label(root, image=image, bg="#91cff2")
+image_label.pack(pady=20)
+
 
 # Define fonts
-title_font = font.Font(family="Helvetica", size=16, weight="bold")
-button_font = font.Font(family="Helvetica", size=12)
-status_font = font.Font(family="Helvetica", size=10, slant="italic")
+title_font = font.Font(family="Open_Sans", size=36, weight="bold")
+button_font = font.Font(family="Open_Sans", size=12)
+status_font = font.Font(family="Open_Sans", size=14, slant="italic")
 
 # Create a frame for the title
-title_frame = tk.Frame(root, bg="#f0f0f0")
-title_frame.pack(pady=20)
-
-title_label = tk.Label(title_frame, text="Hackathon 24 Winners", font=title_font, bg="#f0f0f0", fg="#333333")
+title_frame = tk.Frame(root,bd=0,bg='#91cff2')
+title_frame.pack(pady=0)
+title_label = tk.Label(title_frame, text="Jumini voice assistant", bg='#91cff2',font=title_font, fg="#333333")
 title_label.pack()
 
 # Create a frame for the button
-button_frame = tk.Frame(root, bg="#f0f0f0")
-button_frame.pack(pady=10)
+button_frame = tk.Frame(root, bg="#91cff2")
+button_frame.pack(pady=30)
 
 # Create the button with enhanced styling
 button = tk.Button(
     button_frame, 
-    text="Start Recognition", 
+    text="Click and Say something", 
     command=activate_recognition, 
-    bg="#4CAF50", 
+    bg="#2c7524", 
     fg="white", 
     font=button_font,
     activebackground="#45a049",
@@ -155,14 +162,16 @@ button = tk.Button(
 button.pack()
 
 # Create a status label
-status_label = tk.Label(root, text="Ready", font=status_font, bg="#f0f0f0", fg="#333333")
+status_label = tk.Label(root, text="Ready", font=status_font,bg='#91cff2',fg="#333333")
 status_label.pack(pady=20)
+
+#style = Style(theme='darkly')
 
 # Add a footer
 footer_frame = tk.Frame(root, bg="#f0f0f0")
 footer_frame.pack(side="bottom", fill="x", pady=10)
 
-footer_label = tk.Label(footer_frame, text="© 2024 Speech Recognition App", font=("Helvetica", 8), bg="#f0f0f0", fg="#888888")
+footer_label = tk.Label(footer_frame, text="© 2024 Jumini X Hackathon", font=("Helvetica", 8), bg="#f0f0f0", fg="#888888")
 footer_label.pack()
 
 # Start the Tkinter event loop
